@@ -102,8 +102,9 @@ void Character::character_step(int _param)
 	character_dead();
 }
 
-Character::Character() : hunger(100), fun(100), cheerfulness(100), name("Lewis Hamilton"), age(0), status(true), money(15)
+Character::Character() : hunger(100), fun(100), cheerfulness(100), name("Lewis Hamilton"), age(0), status(true), money(15), livePets(+1) //при покупке увеличение на 1
 {
+	petsCount++;
 #ifdef _DEBUG
 	cout << " Character constructor" << endl;
 #endif
@@ -221,4 +222,28 @@ void Character::finalResult()
 {
 	cout << "Final result" << endl;
 	cout << setw(9) << "Character age:" << setw(4) << age << setw(5) << endl;
+}
+
+int Character::getpetsCount()
+{
+	return petsCount;
+}
+
+void Character::buyPet()
+{
+	if (money >= 50 && livePets <5)
+	{
+		cout << setw(17) << money << setw(9) << "fun:" << setw(5) << money << "->";
+		money -= 50;
+		cout << money << endl;
+		petsCount++;
+		//посадить питомца в слот
+		livePets++;
+		//Character::p[livePets] = Pet();
+	}
+	else
+	{
+		cout << "Not enough money or full pets";
+		return;
+	}
 }

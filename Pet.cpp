@@ -46,8 +46,9 @@ void Pet::pet_step(int _param)
 	pet_dead();
 }
 
-Pet::Pet() : hunger(100), fun(100), cheerfulness(100), name("Ron"), gender("boy"), age(0), status(true), number(+1)
+Pet::Pet() : hunger(100), fun(100), cheerfulness(100), name("ron"), gender("boy"), age(0), status(false)
 {
+
 #ifdef _DEBUG
 	cout << "Pet constructor" << endl;
 #endif
@@ -184,8 +185,15 @@ std::string Pet::getName()
 {
 	return name;
 }
-void Pet::setName()
+void Pet::setpetName()
 {
+	randName[0] = "Victor";
+	randName[1] = "Torvic";
+	string sBuf; //буферная строка
+	int iBuf; //буферное число букв
+	int name1; //первое имя для создания
+	int name2; // второе имя для создания
+	Character c;
 
 		cout << "\n1 - Set a name\n2 - Generate a name" << endl;
 		int num = 0;
@@ -195,32 +203,30 @@ void Pet::setName()
 		case 1:
 			cout << "\nName a pet: ";
 			cin >> name;
-			//randName[--number] = name; не  могу так как констуркторы все создатутся сразу и счетчик будет большой, а не по порядку
-			cout << "New pet name is: " << name << endl;
+			cout << "New pet's name is: " << name << endl;
 			break;
 		case 2:
-			//реализация генерации
-			randName[0] = "Victor";
-			randName[1] = "Torvic";
 
-			if (randName[1] == "0")
+			//выбираем случайные имена(номер индекса) из диапазона имен питомцев в массиве для генерации нового имени
+			//petsCount = c.getpetsCount() -1; // "-1" для получения индекса, а не числа
+			name1 =rand() % petsCount;
+			name2 =rand() % petsCount;
+			iBuf = randName[name1].length() / 2;
+			sBuf.insert(0, randName[name1], 0, iBuf);
+			iBuf = randName[name2].length() / 2;
+			sBuf.insert(sBuf.length(), randName[name2], 0, iBuf);
+			if (petsCount == 100)
 			{
-				cout << "Blocked";
+				name = sBuf;
 			}
-			else //рандомайзер из заполненных ячеек массива добавить
+			else
 			{
-				string sBuf;
-				int iBuf;
-				iBuf = randName[0].length() / 2;
-				sBuf.insert(0, randName[0], 0, iBuf);
-				iBuf = randName[1].length() / 2;
-				sBuf.insert(sBuf.length(), randName[1], 0, iBuf);
-				randName[2] = sBuf;
-				name = randName[2];
-				cout << "New pet name is: " << name << endl;
+				randName[petsCount] = sBuf;
+				name = randName[petsCount];
 			}
-			cout <<"\n" << randName[0] << "__" << randName[1] << "__" << randName[2];
-			//----------------------------------------------------------
+			cout << "New pet's name is: " << name << endl;
+			
+			//cout <<"\n" << randName[0] << "__" << randName[1] << "__" << randName[2];
 			break;
 		default:
 			break;
@@ -230,14 +236,13 @@ void Pet::setName()
 
 void Pet::show()
 {
-	
 	cout << "\tPet's characteristics" << endl;
-	cout << "Name: " << name << endl << "Gender: " << gender << endl << "Number:" << number << endl << "Age: " << age << endl << "Status: " << status << endl << "Hunger: " << hunger << endl << "Fun: " << fun << endl << "Cheerfulness: " << cheerfulness << endl;
+	cout << "Name: " << name << endl << "Gender: " << gender << endl << "Number:" << petsCount << endl << "Age: " << age << endl << "Status: " << status << endl << "Hunger: " << hunger << endl << "Fun: " << fun << endl << "Cheerfulness: " << cheerfulness << endl;
 	cout << "--------------------------------------" << endl;
 }
 void Pet::finalResult()
 {
-	cout << setw(9) << "Pet count:" << setw(4) << number << setw(5) << endl;
+	cout << setw(9) << "Pet count:" << petsCount << setw(4) << setw(5) << endl;
 }
 
 void step(Pet& pet, Character& men, int pet_check, int men_check)

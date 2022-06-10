@@ -4,16 +4,16 @@ class Character;
 
 class Pet
 {
-private:
-	int hunger;  //0-100
+private:	
 	int fun;	//0-100
 	int cheerfulness;	//0-100
+	int hunger;  //0-100
 	std::string name;
-	std::string randName[100] = {"0", "0"}; //для массива имен
+	int nameCount = 0;
+	std::string randName[100]; //для массива имен
 	std::string gender;
 	int age;
 	bool status; //true-live, fouls - dead
-	int number = 0;  //global iterator?????
 	int timer = 0;
 
 	void pet_step(int);
@@ -30,7 +30,7 @@ public:
 	int getHunger();
 	int getFun();
 	int getCheerfulness();
-	void setName();
+	void setpetName();
 	std::string getName();
 
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);

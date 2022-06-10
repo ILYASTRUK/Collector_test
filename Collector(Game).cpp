@@ -3,10 +3,11 @@
 #include"Pet.h"
 #include"Character.h"
 
-//Создание питомца сделать и переделать
+
 
 using namespace std;
-//пояснить за warnin'ги
+
+
 int main()
 {
 	Character men;
@@ -19,8 +20,9 @@ int main()
 		Exit, Play_pet, Eat_pet, Sleep_pet, Eat_character, Sleep_character, Work_character, Parameters, Buy
 	};
 
+	cout << men.getpetsCount();
 	men.setName(); //имя персонажа при начале игры
-	men.p[0].setName(); //имя 1 питомца при начале игры
+	men.p[0].setpetName(); //имя 1 питомца при начале игры
 
 	while (true) //изменить проверку на смерть для каждого питомца
 	{
@@ -170,6 +172,7 @@ int main()
 
 		case static_cast<int>(SwitchChoice::Buy):
 			cout << "Coming soon" << endl;
+
 			break;
 
 		case static_cast<int>(SwitchChoice::Exit):
