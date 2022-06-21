@@ -7,7 +7,7 @@ using namespace std;
 
 bool Character::character_dead() //проверка на смерть персонажа
 {
-	if (hunger <= 10)
+	if (hunger < 10)
 	{
 		srand(time(0));
 		int rand_num = 1 + rand() % 100;
@@ -24,7 +24,7 @@ bool Character::character_dead() //проверка на смерть персонажа
 		}
 	}
 
-	if (fun <= 10)
+	if (fun < 10)
 	{
 		srand(time(0));
 		int rand_num = 1 + rand() % 100;
@@ -41,7 +41,7 @@ bool Character::character_dead() //проверка на смерть персонажа
 		}
 	}
 
-	if (cheerfulness <= 10)
+	if (cheerfulness < 10)
 	{
 		srand(time(0));
 		int rand_num = 1 + rand() % 100;
@@ -57,6 +57,7 @@ bool Character::character_dead() //проверка на смерть персонажа
 			return true;
 		}
 	}
+	return true;
 }
 
 void Character::character_step(int _param)
@@ -90,21 +91,21 @@ void Character::character_step(int _param)
 	}
 	if (static_cast<int>(param::none) == _param)
 	{
-
+		//nothing
 	}
-	timer += 25;
+
+	srand(time(0));
+	timer += 1 + rand() % 25;
 	if (timer >= 100)
 	{
 		age++;
 		int buf = timer;  //остаток после взросления(>100)
 		timer = buf - 100;
 	}
-	character_dead();
 }
 
-Character::Character() : hunger(100), fun(100), cheerfulness(100), name("Lewis Hamilton"), age(0), status(true), money(15), livePets(+1) //при покупке увеличение на 1
+Character::Character() : hunger(100), fun(100), cheerfulness(100), name("Lewis Hamilton"), age(0), status(true), money(50), petsCount(1), livePets(1)
 {
-	petsCount++;
 #ifdef _DEBUG
 	cout << " Character constructor" << endl;
 #endif
@@ -137,7 +138,7 @@ void Character::eat()
 	cout << setw(17) << name << setw(9) << "hunger:" << setw(5) << hunger << "->";
 
 	srand(time(0));
-	hunger += 1 + rand() % 25;
+	hunger += (1 + rand() % 25);
 	if (hunger >= 100)
 	{
 		hunger = 100;
@@ -154,7 +155,7 @@ void Character::sleep()
 {
 	cout << setw(17) << name << setw(9) << "cheerfulness:" << setw(5) << cheerfulness << "->";
 	srand(time(0));
-	cheerfulness += 1 + rand() % 25;
+	cheerfulness += (1 + rand() % 25);
 	if (cheerfulness >= 100)
 	{
 		cheerfulness = 100;
@@ -172,7 +173,7 @@ void Character::work()
 	cout << setw(17) << name << setw(9) << "money:" << setw(5) << money << "->";
 
 	srand(time(0));
-	money += 1 + rand() % 25;
+	money += (1 + rand() % 25);
 
 	if (money >= 100)
 	{
@@ -191,7 +192,7 @@ void Character::character_fun() //одновременно с методом play() питомца
 	cout << setw(17) << name << setw(9) << "fun:" << setw(5) << fun << "->";
 
 	srand(time(0));
-	fun += 1 + rand() % 25;
+	fun += (1 + rand() % 25);
 
 	if (fun >= 100)
 	{
@@ -221,29 +222,41 @@ void Character::show()
 void Character::finalResult()
 {
 	cout << "Final result" << endl;
-	cout << setw(9) << "Character age:" << setw(4) << age << setw(5) << endl;
+	cout << setw(9) << "Character age: " << setw(4) << age << setw(5) << endl;
+	cout << setw(9) << "Amount of pets: " << setw(4) << petsCount << setw(5) << endl;
 }
 
 int Character::getpetsCount()
 {
 	return petsCount;
+
+}
+
+int Character::getlivePetsCount()
+{
+	return livePets;
+}
+
+void Character::minuslivePets()
+{
+	livePets--;
 }
 
 void Character::buyPet()
 {
-	if (money >= 50 && livePets <5)
+	if (money >= 25 && livePets <5)
 	{
-		cout << setw(17) << money << setw(9) << "fun:" << setw(5) << money << "->";
-		money -= 50;
+		cout << setw(17) << money << setw(9) << "money:" << setw(5) << money << "->";
+		money -= 25;
 		cout << money << endl;
+		p[livePets] = Pet();
+		p[livePets].setpetName();
 		petsCount++;
-		//посадить питомца в слот
 		livePets++;
-		//Character::p[livePets] = Pet();
 	}
 	else
 	{
-		cout << "Not enough money or full pets";
+		cout << "Not enough money or FULL pets";
 		return;
 	}
 }

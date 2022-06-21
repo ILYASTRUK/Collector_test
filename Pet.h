@@ -9,12 +9,12 @@ private:
 	int cheerfulness;	//0-100
 	int hunger;  //0-100
 	std::string name;
-	int nameCount = 0;
-	std::string randName[100]; //для массива имен
+	static int namesCount; //сколько уже имен в массиве
+	static std::string randName[100]; //для массива имен
 	std::string gender;
 	int age;
 	bool status; //true-live, fouls - dead
-	int timer = 0;
+	int timer = 0; //время жизни
 
 	void pet_step(int);
 public:
@@ -25,11 +25,10 @@ public:
 	void eat();
 	void sleep();
 	void show();
-	void finalResult();
-
 	int getHunger();
 	int getFun();
 	int getCheerfulness();
+	bool getStatus();
 	void setpetName();
 	std::string getName();
 
