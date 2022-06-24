@@ -62,34 +62,35 @@ bool Character::character_dead() //проверка на смерть персонажа
 
 void Character::character_step(int _param)
 {
-	if (static_cast<int>(param::play) == _param)
+	param action = static_cast<param>(_param);
+	if (param::play == action)
 	{
 		hunger -= 8;
 		cheerfulness -= 8;
 	}
-	if (static_cast<int>(param::eat) == _param)
+	if (param::eat == action)
 	{
 		cheerfulness -= 8;
 		fun -= 8;
 	}
-	if (static_cast<int>(param::sleep) == _param)
+	if (param::sleep == action)
 	{
 		fun -= 8;
 		hunger -= 8;
 	}
-	if (static_cast<int>(param::work) == _param)
-	{
-		fun -= 8;
-		hunger -= 8;
-		cheerfulness -= 8;
-	}
-	if (static_cast<int>(param::inactivity) == _param)
+	if (param::work == action)
 	{
 		fun -= 8;
 		hunger -= 8;
 		cheerfulness -= 8;
 	}
-	if (static_cast<int>(param::none) == _param)
+	if (param::inactivity == action)
+	{
+		fun -= 8;
+		hunger -= 8;
+		cheerfulness -= 8;
+	}
+	if (param::none == action)
 	{
 		//nothing
 	}
@@ -120,7 +121,7 @@ Character::~Character()
 int Character::spend_money()
 {
 	cout << setw(17) << name << setw(9) << "money:" << setw(5) << money << "->";
-	if (money > 5)
+	if (money >= 5)
 	{
 		money -= 5;
 		cout << money << endl;
@@ -237,11 +238,6 @@ int Character::getlivePetsCount()
 	return livePets;
 }
 
-void Character::minuslivePets()
-{
-	livePets--;
-}
-
 void Character::buyPet()
 {
 	if (money >= 25 && livePets <5)
@@ -259,4 +255,37 @@ void Character::buyPet()
 		cout << "Not enough money or FULL pets";
 		return;
 	}
+}
+
+void Character::deathCheckPets()
+{
+	int move = 0; //шаг смещения питомцев после смерти 1-го из
+	int _livepets = livePets; //только для цикла снизу(так как в цикле кол-во живых питомцев уменьшается)
+	for (int i = 0; i < _livepets; i++) 
+	{
+		if (p[i].pet_dead() == false)
+		{
+			livePets--;
+			cout << "\nPet " << i + 1 << " is dead" << endl;
+			move++;
+
+		}
+		else //смещение живого питомца, если перед ним умер питомец
+		{
+			p[i - move] = p[i];
+		}
+	}
+
+	if (livePets == 0) //если все питомцы мертвы, создаем нового автоматически
+	{
+		cout << "Create a new pet" << endl;
+		p[0] = Pet();
+		p[0].setpetName();
+	}
+}
+
+void Character::softStart()
+{
+	setName(); //имя персонажа при начале игры
+	p[0].setpetName(); //имя 1 питомца при начале игры
 }

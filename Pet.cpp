@@ -11,28 +11,29 @@ string Pet::randName[100] = { "test" };
 
 void Pet::pet_step(int _param)
 {
-	if (static_cast<int>(param::play) == _param)
+	param action = static_cast<param>(_param);
+	if (param::play == action)
 	{
 		hunger -= 8;
 		cheerfulness -= 8;
 	}
-	if (static_cast<int>(param::eat) == _param)
+	if (param::eat == action)
 	{
 		cheerfulness -= 8;
 		fun -= 8;
 	}
-	if (static_cast<int>(param::sleep) == _param)
+	if (param::sleep == action)
 	{
 		fun -= 8;
 		hunger -= 8;
 	}
-	if (static_cast<int>(param::inactivity) == _param)
+	if (param::inactivity == action)
 	{
 		fun -= 8;
 		hunger -= 8;
 		cheerfulness -= 8;
 	}
-	if (static_cast<int>(param::none) == _param)
+	if (param::none == action)
 	{
 		//nothing
 	}

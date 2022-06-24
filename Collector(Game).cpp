@@ -5,44 +5,16 @@
 
 using namespace std;
 
-
 int main()
 {
 	Character men;
 	int checkMoney;
 	int choice; //выбор действия в switch
-	enum class SwitchChoice
-	{
-		Exit, Play_pet, Eat_pet, Sleep_pet, Eat_character, Sleep_character, Work_character, Parameters, Buy
-	};
 
-	men.setName(); //имя персонажа при начале игры
-	men.p[0].setpetName(); //имя 1 питомца при начале игры
+	men.softStart(); //ввод начальных данных
 
 	while (true)
 	{
-		int move = 0; //шаг смещения питомцев после смерти 1-го из
-		int _livepets = men.getlivePetsCount(); //только для цикла снизу
-		for (int i = 0; i < _livepets; i++)
-		{
-			if (men.p[i].pet_dead() == false)
-			{
-				men.minuslivePets();
-				cout << "\nPet " << i+1 << " is dead" << endl;
-
-				//смещение питомцев в массиве после смерти 1-го из них
-				if (men.p[i].getStatus() == false)
-				{
-					move++;
-					
-				}
-				else
-				{
-					men.p[i-move] = men.p[i];
-				}
-			}
-		}
-
 		if (men.character_dead() == false)
 		{
 			cout << "Character is dead" << endl;
@@ -50,13 +22,7 @@ int main()
 			return false;
 		}
 
-		if (men.getlivePetsCount() == 0) //если все питомцы мертвы, создаем нового автоматически
-		{
-			cout << "Create a new pet" << endl;
-			men.p[0] = Pet();
-			men.p[0].setpetName();
-		}
-
+		men.deathCheckPets();
 
 		cout << "\n-----------------------------------------------------------------------------------------" << endl;
 		cout << "1-Play(Pet)\n2-Eat(Pet)\n3-Sleep(Pet)\n4-Eat(Character)\n5-Sleep(Character)\n6-Work(Character)\n7-Parameters\n8-Buy a new pet\n0-Exit" << endl;
@@ -70,10 +36,25 @@ int main()
 		case (SwitchChoice::Play_pet):
 			for (int i = 0; i < men.getlivePetsCount(); i++)
 			{
-				cout << "Pet №" << i << ": " << men.p[i].getName() << ", " << "Fun -->" << men.p[i].getFun() << endl;
+				cout << "Pet "<< char(252) << i << ": " << men.p[i].getName() << ", " << "Fun -->" << men.p[i].getFun() << endl;
 			}
-			cout << "Choose a pet: ";
-			cin >> number;
+
+			while (true) //проверка на ввод(только номер живого питомца)
+			{
+				cout << "Choose a pet: ";
+				cin >> number;
+				if (number >= 0 && number <= men.getlivePetsCount())
+				{
+					break;
+				}
+				else
+				{
+					cout << "Wrong input!!!" << endl;
+					cout << "TRY AGAIN" << endl;
+					cin.clear();
+					cin.ignore(32767, '\n');
+				}
+			}
 			men.p[number].play();
 			men.character_fun();
 
@@ -91,16 +72,34 @@ int main()
 			break;
 
 		case (SwitchChoice::Eat_pet):
-			for (int i = 0; i < men.getlivePetsCount(); i++)
-			{
-				cout << "Pet №" << i << ": " << men.p[i].getName() << ", " << "Hunger -->" << men.p[i].getHunger() << endl;
-			}
-			cout << "Choose a pet: ";
-			cin >> number;
-			men.p[number].eat();
-			checkMoney = men.spend_money();
+
+			checkMoney = men.spend_money(); //для проврки остатка на счете "0" - есть, "1" - нет
 			if (checkMoney == 0)
 			{
+				for (int i = 0; i < men.getlivePetsCount(); i++)
+				{
+					cout << "Pet " << char(252) << i << ": " << men.p[i].getName() << ", " << "Hunger -->" << men.p[i].getHunger() << endl;
+				}
+
+				while (true) //проверка на ввод(только номер живого питомца)
+				{
+					cout << "Choose a pet: ";
+					cin >> number;
+					if (number >= 0 && number <= men.getlivePetsCount())
+					{
+						break;
+					}
+					else
+					{
+						cout << "Wrong input!!!" << endl;
+						cout << "TRY AGAIN" << endl;
+						cin.clear();
+						cin.ignore(32767, '\n');
+					}
+				}
+
+				men.p[number].eat();
+
 				for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
 				{
 					if (i == number)
@@ -118,11 +117,27 @@ int main()
 		case (SwitchChoice::Sleep_pet):
 			for (int i = 0; i < men.getlivePetsCount(); i++)
 			{
-				cout << "Pet №" << i << ": " << men.p[i].getName() << ", " << "Cheerfulness -->" << men.p[i].getCheerfulness() << endl;
+				cout << "Pet " << char(252) << i << ": " << men.p[i].getName() << ", " << "Cheerfulness -->" << men.p[i].getCheerfulness() << endl;
 			}
-			cout << "Choose a pet: ";
-			cin >> number;
+
+			while (true) //проверка на ввод(только номер живого питомца)
+			{
+				cout << "Choose a pet: ";
+				cin >> number;
+				if (number >= 0 && number <= men.getlivePetsCount())
+				{
+					break;
+				}
+				else
+				{
+					cout << "Wrong input!!!" << endl;
+					cout << "TRY AGAIN" << endl;
+					cin.clear();
+					cin.ignore(32767, '\n');
+				}
+			}
 			men.p[number].sleep();
+
 			for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
 			{
 				if (i == number)
