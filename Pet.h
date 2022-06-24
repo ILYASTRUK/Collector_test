@@ -31,6 +31,6 @@ public:
 	bool getStatus();
 	void setpetName();
 	std::string getName();
-
+	enum class petAttribute : char {FUN, CHEERFULNESS, HUNGER};
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);
 };

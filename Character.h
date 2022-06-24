@@ -45,7 +45,13 @@ public:
 	void buyPet();
 	void deathCheckPets(); 
 	void softStart();
-
+	void printStatOfPet(Pet::petAttribute attr);
+	
+	//A method to interact with both character and pets
+	void actionStep(param petAction, param charAction, int selectedPet);
+	
+	//A method to interact only with character
+	void actionStep(param charAction);
 
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);
 };
