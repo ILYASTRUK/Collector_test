@@ -16,16 +16,19 @@ void Pet::pet_step(int _param)
 	{
 		hunger -= 8;
 		cheerfulness -= 8;
+		play();
 	}
 	if (param::eat == action)
 	{
 		cheerfulness -= 8;
 		fun -= 8;
+		eat();
 	}
 	if (param::sleep == action)
 	{
 		fun -= 8;
 		hunger -= 8;
+		sleep();
 	}
 	if (param::inactivity == action)
 	{

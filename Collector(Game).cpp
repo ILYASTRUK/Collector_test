@@ -5,6 +5,31 @@
 
 using namespace std;
 
+int getPetNumber(Character& men)
+{
+	int number;
+
+	while (true) //проверка на ввод(только номер живого питомца)
+	{
+		cout << "Choose a pet: ";
+		cin >> number;
+		if (number >= 0 && number <= men.getlivePetsCount())
+		{
+			break;
+		}
+		else
+		{
+			cout << "Wrong input!!!" << endl;
+			cout << "TRY AGAIN" << endl;
+			cin.clear();
+			cin.ignore(32767, '\n');
+		}
+	}
+	
+	return number;
+}
+
+
 int main()
 {
 	Character men;
@@ -34,185 +59,79 @@ int main()
 		switch (static_cast<SwitchChoice>(choice))
 		{
 		case (SwitchChoice::Play_pet):
-			for (int i = 0; i < men.getlivePetsCount(); i++)
-			{
-				cout << "Pet "<< char(252) << i << ": " << men.p[i].getName() << ", " << "Fun -->" << men.p[i].getFun() << endl;
-			}
+			men.printStatOfPet(Pet::petAttribute::FUN);
 
-			while (true) //проверка на ввод(только номер живого питомца)
-			{
-				cout << "Choose a pet: ";
-				cin >> number;
-				if (number >= 0 && number <= men.getlivePetsCount())
-				{
-					break;
-				}
-				else
-				{
-					cout << "Wrong input!!!" << endl;
-					cout << "TRY AGAIN" << endl;
-					cin.clear();
-					cin.ignore(32767, '\n');
-				}
-			}
-			men.p[number].play();
-			men.character_fun();
+			number = getPetNumber(men);
 
-			for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
-			{
-				if (i == (number)) //проверка чтобы повзаимодействовать с нужным питомцем
-				{
-					step(men.p[i], men, static_cast<int>(param::play), static_cast<int>(param::play));
-				}
-				else
-				{
-					step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::none));
-				}
-			}
+			men.actionStep(param::play, param::play, number);
+
 			break;
 
 		case (SwitchChoice::Eat_pet):
 
 			checkMoney = men.spend_money(); //для проврки остатка на счете "0" - есть, "1" - нет
+			
 			if (checkMoney == 0)
 			{
-				for (int i = 0; i < men.getlivePetsCount(); i++)
-				{
-					cout << "Pet " << char(252) << i << ": " << men.p[i].getName() << ", " << "Hunger -->" << men.p[i].getHunger() << endl;
-				}
+				men.printStatOfPet(Pet::petAttribute::HUNGER);
 
-				while (true) //проверка на ввод(только номер живого питомца)
-				{
-					cout << "Choose a pet: ";
-					cin >> number;
-					if (number >= 0 && number <= men.getlivePetsCount())
-					{
-						break;
-					}
-					else
-					{
-						cout << "Wrong input!!!" << endl;
-						cout << "TRY AGAIN" << endl;
-						cin.clear();
-						cin.ignore(32767, '\n');
-					}
-				}
+				number = getPetNumber(men);
 
-				men.p[number].eat();
-
-				for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
-				{
-					if (i == number)
-					{
-						step(men.p[i], men, static_cast<int>(param::eat), static_cast<int>(param::inactivity));
-					}
-					else
-					{
-						step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::none));
-					}
-				}
+				men.actionStep(param::eat, param::inactivity, number);
 			}
+			
 			break;
 
 		case (SwitchChoice::Sleep_pet):
-			for (int i = 0; i < men.getlivePetsCount(); i++)
-			{
-				cout << "Pet " << char(252) << i << ": " << men.p[i].getName() << ", " << "Cheerfulness -->" << men.p[i].getCheerfulness() << endl;
-			}
 
-			while (true) //проверка на ввод(только номер живого питомца)
-			{
-				cout << "Choose a pet: ";
-				cin >> number;
-				if (number >= 0 && number <= men.getlivePetsCount())
-				{
-					break;
-				}
-				else
-				{
-					cout << "Wrong input!!!" << endl;
-					cout << "TRY AGAIN" << endl;
-					cin.clear();
-					cin.ignore(32767, '\n');
-				}
-			}
-			men.p[number].sleep();
+			men.printStatOfPet(Pet::petAttribute::CHEERFULNESS);
 
-			for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
-			{
-				if (i == number)
-				{
-					step(men.p[i], men, static_cast<int>(param::sleep), static_cast<int>(param::inactivity));
-				}
-				else
-				{
-					step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::none));
-				}
-			}
+			number = getPetNumber(men);
+
+			men.actionStep(param::sleep, param::inactivity, number);
+
 			break;
 
 		case (SwitchChoice::Eat_character):
 			men.eat();
 			checkMoney = men.spend_money();
+
 			if (checkMoney == 0)
 			{
-				for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
-				{
-					if (i < 1)
-					{
-						step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::eat));
-					}
-					else
-					{
-						step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::none));
-					}
-				}
+				men.actionStep(param::eat);
 			}
+
 			break;
 
 		case (SwitchChoice::Sleep_character):
-			men.sleep();
-			for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
-			{
-				if (i < 1) //для того чтобы поработать 1 раз
-				{
-					step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::sleep));
-				}
-				else
-				{
-					step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::none));
-				}
-			}
+
+			men.actionStep(param::sleep);
 
 			break;
 
 		case (SwitchChoice::Work_character):
-			men.work();
-			for (int i = 0; i < men.getlivePetsCount(); i++) //для "шагов"
-			{
-				if (i < 1) //для того чтобы поработать 1 раз
-				{
-					step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::work));
-				}
-				else
-				{
-					step(men.p[i], men, static_cast<int>(param::inactivity), static_cast<int>(param::none));
-				}
-			}
+
+			men.actionStep(param::work);
+
 			break;
 
 		case (SwitchChoice::Parameters):
+			
 			for (int i = 0; i < men.getlivePetsCount(); i++)
 			{
 				men.p[i].show();
 			}			
+
 			men.show();
+			
 			break;
 
 		case (SwitchChoice::Buy):
+			
 			men.buyPet();
 			int temporaryint;
 			temporaryint = men.getlivePetsCount();
+			
 			break;
 
 		case (SwitchChoice::Exit):

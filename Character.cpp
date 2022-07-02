@@ -1,11 +1,11 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <ctime>
 #include <iomanip>
 #include"character.h"
 
 using namespace std;
 
-bool Character::character_dead() //проверка на смерть персонажа
+bool Character::character_dead() //ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г±Г¬ГҐГ°ГІГј ГЇГҐГ°Г±Г®Г­Г Г¦Г 
 {
 	if (hunger < 10)
 	{
@@ -67,22 +67,26 @@ void Character::character_step(int _param)
 	{
 		hunger -= 8;
 		cheerfulness -= 8;
+		character_fun();
 	}
 	if (param::eat == action)
 	{
 		cheerfulness -= 8;
 		fun -= 8;
+		eat();
 	}
 	if (param::sleep == action)
 	{
 		fun -= 8;
 		hunger -= 8;
+		sleep();
 	}
 	if (param::work == action)
 	{
 		fun -= 8;
 		hunger -= 8;
 		cheerfulness -= 8;
+		work();
 	}
 	if (param::inactivity == action)
 	{
@@ -100,7 +104,7 @@ void Character::character_step(int _param)
 	if (timer >= 100)
 	{
 		age++;
-		int buf = timer;  //остаток после взросления(>100)
+		int buf = timer;  //Г®Г±ГІГ ГІГ®ГЄ ГЇГ®Г±Г«ГҐ ГўГ§Г°Г®Г±Г«ГҐГ­ГЁГї(>100)
 		timer = buf - 100;
 	}
 }
@@ -188,7 +192,7 @@ void Character::work()
 	cout << money << endl;
 }
 
-void Character::character_fun() //одновременно с методом play() питомца
+void Character::character_fun() //Г®Г¤Г­Г®ГўГ°ГҐГ¬ГҐГ­Г­Г® Г± Г¬ГҐГІГ®Г¤Г®Г¬ play() ГЇГЁГІГ®Г¬Г¶Г 
 {
 	cout << setw(17) << name << setw(9) << "fun:" << setw(5) << fun << "->";
 
@@ -259,8 +263,8 @@ void Character::buyPet()
 
 void Character::deathCheckPets()
 {
-	int move = 0; //шаг смещения питомцев после смерти 1-го из
-	int _livepets = livePets; //только для цикла снизу(так как в цикле кол-во живых питомцев уменьшается)
+	int move = 0; //ГёГ ГЈ Г±Г¬ГҐГ№ГҐГ­ГЁГї ГЇГЁГІГ®Г¬Г¶ГҐГў ГЇГ®Г±Г«ГҐ Г±Г¬ГҐГ°ГІГЁ 1-ГЈГ® ГЁГ§
+	int _livepets = livePets; //ГІГ®Г«ГјГЄГ® Г¤Г«Гї Г¶ГЁГЄГ«Г  Г±Г­ГЁГ§Гі(ГІГ ГЄ ГЄГ ГЄ Гў Г¶ГЁГЄГ«ГҐ ГЄГ®Г«-ГўГ® Г¦ГЁГўГ»Гµ ГЇГЁГІГ®Г¬Г¶ГҐГў ГіГ¬ГҐГ­ГјГёГ ГҐГІГ±Гї)
 	for (int i = 0; i < _livepets; i++) 
 	{
 		if (p[i].pet_dead() == false)
@@ -270,13 +274,13 @@ void Character::deathCheckPets()
 			move++;
 
 		}
-		else //смещение живого питомца, если перед ним умер питомец
+		else //Г±Г¬ГҐГ№ГҐГ­ГЁГҐ Г¦ГЁГўГ®ГЈГ® ГЇГЁГІГ®Г¬Г¶Г , ГҐГ±Г«ГЁ ГЇГҐГ°ГҐГ¤ Г­ГЁГ¬ ГіГ¬ГҐГ° ГЇГЁГІГ®Г¬ГҐГ¶
 		{
 			p[i - move] = p[i];
 		}
 	}
 
-	if (livePets == 0) //если все питомцы мертвы, создаем нового автоматически
+	if (livePets == 0) //ГҐГ±Г«ГЁ ГўГ±ГҐ ГЇГЁГІГ®Г¬Г¶Г» Г¬ГҐГ°ГІГўГ», Г±Г®Г§Г¤Г ГҐГ¬ Г­Г®ГўГ®ГЈГ® Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ
 	{
 		cout << "Create a new pet" << endl;
 		p[0] = Pet();
@@ -286,6 +290,65 @@ void Character::deathCheckPets()
 
 void Character::softStart()
 {
-	setName(); //имя персонажа при начале игры
-	p[0].setpetName(); //имя 1 питомца при начале игры
+	setName(); //ГЁГ¬Гї ГЇГҐГ°Г±Г®Г­Г Г¦Г  ГЇГ°ГЁ Г­Г Г·Г Г«ГҐ ГЁГЈГ°Г»
+	p[0].setpetName(); //ГЁГ¬Гї 1 ГЇГЁГІГ®Г¬Г¶Г  ГЇГ°ГЁ Г­Г Г·Г Г«ГҐ ГЁГЈГ°Г»
+}
+
+void Character::printStatOfPet(Pet::petAttribute attr)
+{
+	for (size_t i = 0; i < getlivePetsCount(); i++)
+	{
+		std::cout << i <<": " << p[i].getName();
+		std::string o;
+
+		switch (attr)
+		{
+
+		case Pet::petAttribute::FUN:
+		{
+			o += "Fun --> " + p[i].getFun();
+			break;
+		}
+
+		case Pet::petAttribute::CHEERFULNESS:
+		{
+			o += "Cheerfulness --> " + p[i].getHunger();
+			break;
+		}
+
+		case Pet::petAttribute::HUNGER:
+		{
+			o += "Hunger --> " + p[i].getCheerfulness();
+			break;
+		}
+
+		}
+
+		std::cout << o << std::endl;
+	}
+}
+
+void Character::actionStep(param petAction, param charAction, int selectedPet)
+{
+	for (int i = 0; i < getlivePetsCount(); i++) //РґР»СЏ "С€Р°РіРѕРІ"
+	{
+		if (i == selectedPet)
+		{
+			step(p[i], *this, static_cast<int>(petAction), static_cast<int>(charAction));
+		}
+		else
+		{
+			step(p[i], *this, static_cast<int>(param::inactivity), static_cast<int>(param::none));
+		}
+	}
+}
+
+void Character::actionStep(param charAction)
+{
+	step(p[0], *this, static_cast<int>(param::none), static_cast<int>(charAction));
+
+	for (int i = 0; i < getlivePetsCount(); i++)
+	{
+		step(p[i], *this, static_cast<int>(param::inactivity), static_cast<int>(param::none));
+	}
 }
