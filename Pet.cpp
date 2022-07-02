@@ -2,10 +2,10 @@
 #include <ctime>
 #include <iomanip>
 #include"Pet.h"
-#include"Character.h" // добавил, так как из-за того что в pet.h сделал "class character" вместо инклюда
+#include"Character.h" // added, because in pet.h do "class character" instead "include"
 
 using namespace std;
-//определение static переменных, чтобы все экземпл€ры могли "пользоватьс€" ими
+//definition static variable, so that all exemplar of class can "use" them
 int Pet::namesCount = 6;
 string Pet::randName[100] = { "test" };
 
@@ -46,7 +46,7 @@ void Pet::pet_step(int _param)
 	if (timer >= 100)
 	{
 		age++;
-		int buf = timer;  //остаток после взрослени€(>100)
+		int buf = timer;  //the balance after growing up(>100)
 		timer = buf - 100;
 	}
 }
@@ -66,7 +66,7 @@ Pet::~Pet()
 #endif
 }
 
-bool Pet::pet_dead() //проверка на смерть питомца //нужно уменьшить счетчик живых питомцев
+bool Pet::pet_dead()
 {
 	if (hunger < 10)
 	{
@@ -76,7 +76,6 @@ bool Pet::pet_dead() //проверка на смерть питомца //нужно уменьшить счетчик живы
 		if (rand_num <= deadChance)
 		{
 			status = false;
-			//cout << "Pet is dead in pet.cpp" << endl;
 			return false;
 		}
 		else
@@ -93,7 +92,6 @@ bool Pet::pet_dead() //проверка на смерть питомца //нужно уменьшить счетчик живы
 		if (rand_num <= deadChance)
 		{
 			status = false;
-			//cout << "Pet is dead in pet.cpp" << endl;
 			return false;
 		}
 		else
@@ -110,7 +108,6 @@ bool Pet::pet_dead() //проверка на смерть питомца //нужно уменьшить счетчик живы
 		if (rand_num <= deadChance)
 		{
 			status = false;
-			//cout << "Pet is dead in pet.cpp" << endl;
 			return false;
 		}
 		else
@@ -207,10 +204,10 @@ void Pet::setpetName()
 	randName[4] = "hamilton";
 	randName[5] = "valteri";
 
-	string sBuf; //буферна€ строка
-	int iBuf; //буферное число букв
-	int name1; //первое им€ дл€ создани€
-	int name2; // второе им€ дл€ создани€
+	string sBuf; //buffer line
+	int iBuf; //buffer number of letters
+	int name1; //the first name to create
+	int name2; //the second name to create
 
 		cout << "\n1 - Set a name\n2 - Generate a name" << endl;
 		int num = 0;
@@ -225,7 +222,7 @@ void Pet::setpetName()
 			break;
 		case 2:
 
-			//выбираем случайные имена(номер индекса) из диапазона имен питомцев в массиве дл€ генерации нового имени
+			//select random names (index number) from the range of pet names in the array to generate a new name
 			srand(time(0));
 			name1 =rand() % namesCount;
 			name2 =rand() % namesCount;

@@ -9,7 +9,7 @@ int getPetNumber(Character& men)
 {
 	int number;
 
-	while (true) //проверка на ввод(только номер живого питомца)
+	while (true) //input check (number of a living pet)
 	{
 		cout << "Choose a pet: ";
 		cin >> number;
@@ -34,9 +34,9 @@ int main()
 {
 	Character men;
 	int checkMoney;
-	int choice; //выбор действия в switch
+	int choice; //action choice in switch
 
-	men.softStart(); //ввод начальных данных
+	men.softStart(); //initial data input
 
 	while (true)
 	{
@@ -52,7 +52,7 @@ int main()
 		cout << "\n-----------------------------------------------------------------------------------------" << endl;
 		cout << "1-Play(Pet)\n2-Eat(Pet)\n3-Sleep(Pet)\n4-Eat(Character)\n5-Sleep(Character)\n6-Work(Character)\n7-Parameters\n8-Buy a new pet\n0-Exit" << endl;
 		cout << "-----------------------------------------------------------------------------------------" << endl;
-		int number; // выбор номера питомца
+		int number; //choice of pet number
 		cin >> choice;
 		system("cls");
 
@@ -69,7 +69,7 @@ int main()
 
 		case (SwitchChoice::Eat_pet):
 
-			checkMoney = men.spend_money(); //для проврки остатка на счете "0" - есть, "1" - нет
+			checkMoney = men.spend_money(); //check money "0" - have, "1" - haven't
 			
 			if (checkMoney == 0)
 			{

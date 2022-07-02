@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool Character::character_dead() //ïðîâåðêà íà ñìåðòü ïåðñîíàæà
+bool Character::character_dead() //death check
 {
 	if (hunger < 10)
 	{
@@ -104,7 +104,7 @@ void Character::character_step(int _param)
 	if (timer >= 100)
 	{
 		age++;
-		int buf = timer;  //îñòàòîê ïîñëå âçðîñëåíèÿ(>100)
+		int buf = timer;  //the balance after growing up(>100)
 		timer = buf - 100;
 	}
 }
@@ -192,7 +192,7 @@ void Character::work()
 	cout << money << endl;
 }
 
-void Character::character_fun() //îäíîâðåìåííî ñ ìåòîäîì play() ïèòîìöà
+void Character::character_fun() //both with Pet's method play() 
 {
 	cout << setw(17) << name << setw(9) << "fun:" << setw(5) << fun << "->";
 
@@ -263,8 +263,8 @@ void Character::buyPet()
 
 void Character::deathCheckPets()
 {
-	int move = 0; //øàã ñìåùåíèÿ ïèòîìöåâ ïîñëå ñìåðòè 1-ãî èç
-	int _livepets = livePets; //òîëüêî äëÿ öèêëà ñíèçó(òàê êàê â öèêëå êîë-âî æèâûõ ïèòîìöåâ óìåíüøàåòñÿ)
+	int move = 0; //the step of moving pets after the death of 1 of them
+	int _livepets = livePets; //only for the bottom cycle "for" (the number of live pets decreases in the cycle)
 	for (int i = 0; i < _livepets; i++) 
 	{
 		if (p[i].pet_dead() == false)
@@ -274,13 +274,13 @@ void Character::deathCheckPets()
 			move++;
 
 		}
-		else //ñìåùåíèå æèâîãî ïèòîìöà, åñëè ïåðåä íèì óìåð ïèòîìåö
+		else //live pet moving, if a pet died before that
 		{
 			p[i - move] = p[i];
 		}
 	}
 
-	if (livePets == 0) //åñëè âñå ïèòîìöû ìåðòâû, ñîçäàåì íîâîãî àâòîìàòè÷åñêè
+	if (livePets == 0) //if all pets died then creature a new pet automatically
 	{
 		cout << "Create a new pet" << endl;
 		p[0] = Pet();
@@ -290,8 +290,8 @@ void Character::deathCheckPets()
 
 void Character::softStart()
 {
-	setName(); //èìÿ ïåðñîíàæà ïðè íà÷àëå èãðû
-	p[0].setpetName(); //èìÿ 1 ïèòîìöà ïðè íà÷àëå èãðû
+	setName(); //at the start game
+	p[0].setpetName(); //name of 1 pet at the start game
 }
 
 void Character::printStatOfPet(Pet::petAttribute attr)
@@ -330,7 +330,7 @@ void Character::printStatOfPet(Pet::petAttribute attr)
 
 void Character::actionStep(param petAction, param charAction, int selectedPet)
 {
-	for (int i = 0; i < getlivePetsCount(); i++) //для "шагов"
+	for (int i = 0; i < getlivePetsCount(); i++) //for "steps"
 	{
 		if (i == selectedPet)
 		{

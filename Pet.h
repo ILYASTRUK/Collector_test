@@ -9,18 +9,18 @@ private:
 	int cheerfulness;	//0-100
 	int hunger;  //0-100
 	std::string name;
-	static int namesCount; //сколько уже имен в массиве
-	static std::string randName[100]; //для массива имен
+	static int namesCount; //total names in array
+	static std::string randName[100]; //array of names
 	std::string gender;
 	int age;
 	bool status; //true-live, fouls - dead
-	int timer = 0; //время жизни
+	int timer = 0; //pet life time
 
 	void pet_step(int);
 public:
 	Pet();
 	~Pet();
-	bool pet_dead(); //проверка на смерть питомца
+	bool pet_dead(); //pet death check
 	void play();
 	void eat();
 	void sleep();

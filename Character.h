@@ -22,9 +22,9 @@ private:
 	int age;
 	bool status; //true-live, fouls - dead
 	int money = 0;
-	int timer = 0; //время жизни
+	int timer = 0; //character life time
 	int livePets = 0;	
-	int petsCount = 0; //всего за игру
+	int petsCount = 0; //total per game
 	void character_step(int);
 
 public:
@@ -35,10 +35,10 @@ public:
 	void eat();
 	void sleep();
 	void work();
-	void character_fun(); //одновременно с методом play() питомца
-	void show(); //текущая информация
-	bool character_dead(); //проверка на смерть персонажа
-	void finalResult(); //информация в конце игры(после смерти персонажа)
+	void character_fun(); //both with Pet's method play() 
+	void show(); //current info
+	bool character_dead(); //death check
+	void finalResult(); //info at the end of game (after character death)
 	void setName();
 	int getpetsCount();
 	int getlivePetsCount();
