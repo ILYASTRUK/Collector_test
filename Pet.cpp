@@ -251,10 +251,74 @@ void Pet::show()
 	cout << "\tPet's characteristics" << endl;
 	cout << "Name: " << name << endl << "Gender: " << gender << endl << "Age: " << age << endl << "Status: " << status << endl << "Hunger: " << hunger << endl << "Fun: " << fun << endl << "Cheerfulness: " << cheerfulness << endl;
 	cout << "--------------------------------------" << endl;
+	
 }
 
 void step(Pet& pet, Character& men, int pet_check, int men_check)
 {
 	pet.pet_step(pet_check);
 	men.character_step(men_check);
+}
+
+bool Pet::operator<(Pet& p2)
+{
+	int petParam1 = fun + cheerfulness + hunger;
+	int petParam2 = p2.fun + p2.cheerfulness + p2.hunger;
+	if (petParam1 < petParam2)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Pet::operator>(Pet& p2)
+{
+	int petParam1 = fun + cheerfulness + hunger;
+	int petParam2 = p2.fun + p2.cheerfulness + p2.hunger;
+	if (petParam1 > petParam2)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int Pet::operator[](std::string const& attr)
+{
+	int _attr;
+	if (attr == "FUN")
+	{
+		_attr = 0;
+	}
+
+	if (attr == "CHEERFULNESS")
+	{
+		_attr = 1;
+	}
+
+	if (attr == "HUNGER")
+	{
+		_attr = 2;
+	}
+
+
+	if (_attr == static_cast<int>(petAttribute::FUN))
+	{
+		return _attr;
+	}
+	
+	if (_attr == static_cast<int>(petAttribute::CHEERFULNESS))
+	{
+		return _attr;
+	}
+	
+	if (_attr == static_cast<int>(petAttribute::HUNGER))
+	{
+		return _attr;
+	}
 }

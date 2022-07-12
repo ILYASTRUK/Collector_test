@@ -33,4 +33,8 @@ public:
 	std::string getName();
 	enum class petAttribute : char {FUN, CHEERFULNESS, HUNGER};
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);
+
+	bool operator<(Pet&);
+	bool operator>(Pet&);
+	int operator[](std::string const&attr);
 };

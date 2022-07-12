@@ -290,7 +290,7 @@ void Character::deathCheckPets()
 
 void Character::softStart()
 {
-	setName(); //at the start game
+	setName(); //set character name at the start game
 	p[0].setpetName(); //name of 1 pet at the start game
 }
 
@@ -351,4 +351,9 @@ void Character::actionStep(param charAction)
 	{
 		step(p[i], *this, static_cast<int>(param::inactivity), static_cast<int>(param::none));
 	}
+}
+
+Pet Character::operator[](int i)
+{
+	return p[i];
 }

@@ -26,6 +26,7 @@ private:
 	int livePets = 0;	
 	int petsCount = 0; //total per game
 	void character_step(int);
+	
 
 public:
 	Pet p[5];
@@ -54,4 +55,6 @@ public:
 	void actionStep(param charAction);
 
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);
+
+	Pet operator[](int i);
 };
