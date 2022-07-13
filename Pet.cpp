@@ -260,7 +260,7 @@ void step(Pet& pet, Character& men, int pet_check, int men_check)
 	men.character_step(men_check);
 }
 
-bool Pet::operator<(Pet& p2)
+bool Pet::operator<(Pet& const p2)
 {
 	int petParam1 = fun + cheerfulness + hunger;
 	int petParam2 = p2.fun + p2.cheerfulness + p2.hunger;
@@ -274,7 +274,15 @@ bool Pet::operator<(Pet& p2)
 	}
 }
 
-bool Pet::operator>(Pet& p2)
+/*
+future
+*bool Pet::operator>(Pet& p2)
+{
+return !(*this < p2);
+}
+*/
+
+bool Pet::operator>(Pet& const p2)
 {
 	int petParam1 = fun + cheerfulness + hunger;
 	int petParam2 = p2.fun + p2.cheerfulness + p2.hunger;
@@ -290,35 +298,18 @@ bool Pet::operator>(Pet& p2)
 
 int Pet::operator[](std::string const& attr)
 {
-	int _attr;
 	if (attr == "FUN")
 	{
-		_attr = 0;
+		return fun;
 	}
 
 	if (attr == "CHEERFULNESS")
 	{
-		_attr = 1;
+		return cheerfulness;
 	}
 
 	if (attr == "HUNGER")
 	{
-		_attr = 2;
-	}
-
-
-	if (_attr == static_cast<int>(petAttribute::FUN))
-	{
-		return _attr;
-	}
-	
-	if (_attr == static_cast<int>(petAttribute::CHEERFULNESS))
-	{
-		return _attr;
-	}
-	
-	if (_attr == static_cast<int>(petAttribute::HUNGER))
-	{
-		return _attr;
+		return hunger;
 	}
 }

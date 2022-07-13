@@ -34,7 +34,7 @@ public:
 	enum class petAttribute : char {FUN, CHEERFULNESS, HUNGER};
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);
 
-	bool operator<(Pet&);
-	bool operator>(Pet&);
+	bool operator<(Pet& const);
+	bool operator>(Pet& const);
 	int operator[](std::string const&attr);
 };

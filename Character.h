@@ -56,5 +56,5 @@ public:
 
 	friend void step(Pet& pet, Character& men, int pet_check, int men_check);
 
-	Pet operator[](int i);
+	Pet& operator[](int i);
 };

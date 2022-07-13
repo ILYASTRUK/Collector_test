@@ -121,9 +121,6 @@ int main()
 			{
 				men.p[i].show();
 			}
-			int i;
-			i = men.p[0] < men.p[1];
-			cout << "\n TEST\n" << i << endl;
 			men.show();
 			
 			break;

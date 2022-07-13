@@ -353,7 +353,7 @@ void Character::actionStep(param charAction)
 	}
 }
 
-Pet Character::operator[](int i)
+Pet& Character::operator[](int i)
 {
 	return p[i];
 }
