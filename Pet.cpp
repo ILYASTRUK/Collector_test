@@ -52,8 +52,7 @@ void Pet::pet_step(int _param)
 }
 
 Pet::Pet() : hunger(100), fun(100), cheerfulness(100), name("test"), gender("boy"), age(0), status(true)
-{
-	
+{	
 #ifdef _DEBUG
 	cout << "Pet constructor" << endl;
 #endif

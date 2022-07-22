@@ -14,14 +14,14 @@ enum class SwitchChoice
 
 class Character
 {
-private:
+protected:
 	int hunger;  //0-100
 	int fun;	//0-100
 	int cheerfulness;	//0-100
+	int money = 0;
 	std::string name;
 	int age;
 	bool status; //true-live, fouls - dead
-	int money = 0;
 	int timer = 0; //character life time
 	int livePets = 0;	
 	int petsCount = 0; //total per game

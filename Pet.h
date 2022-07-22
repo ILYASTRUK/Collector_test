@@ -4,7 +4,7 @@ class Character;
 
 class Pet
 {
-private:	
+protected:	
 	int fun;	//0-100
 	int cheerfulness;	//0-100
 	int hunger;  //0-100
