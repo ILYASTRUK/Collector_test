@@ -14,6 +14,6 @@ PetBase::~PetBase()
 {
 #ifdef _DEBUG
 	cout << "PetBase destructor" << endl;
-	attrPtr -= rand() % (*attrPtr / 2);
 #endif
+	attrPtr -= rand() % (*attrPtr / 2);
 }

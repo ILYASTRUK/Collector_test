@@ -9,6 +9,20 @@ using namespace std;
 int Pet::namesCount = 6;
 string Pet::randName[100] = { "test" };
 
+Pet::Pet() : hunger(100), fun(100), cheerfulness(100), name("test"), gender("boy"), age(5), status(true)
+{
+#ifdef _DEBUG
+	cout << "Pet constructor" << endl;
+#endif
+}
+
+Pet::~Pet()
+{
+#ifdef _DEBUG
+	cout << "Pet destructor" << endl;
+#endif
+}
+
 void Pet::pet_step(int _param)
 {
 	param action = static_cast<param>(_param);
@@ -51,19 +65,7 @@ void Pet::pet_step(int _param)
 	}
 }
 
-Pet::Pet() : hunger(100), fun(100), cheerfulness(100), name("test"), gender("boy"), age(0), status(true)
-{	
-#ifdef _DEBUG
-	cout << "Pet constructor" << endl;
-#endif
-}
 
-Pet::~Pet()
-{
-#ifdef _DEBUG
-	cout << "Pet destructor" << endl;
-#endif
-}
 
 bool Pet::pet_dead()
 {
@@ -192,6 +194,11 @@ std::string Pet::getName()
 bool Pet::getStatus()
 {
 	return status;
+}
+
+int Pet::getAge()
+{
+	return age;
 }
 
 void Pet::setpetName()

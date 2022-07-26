@@ -14,7 +14,7 @@ enum class SwitchChoice
 
 class Character
 {
-protected:
+private:
 	int hunger;  //0-100
 	int fun;	//0-100
 	int cheerfulness;	//0-100
@@ -47,6 +47,7 @@ public:
 	void deathCheckPets(); 
 	void softStart();
 	void printStatOfPet(Pet::petAttribute attr);
+	void funUp();
 	
 	//A method to interact with both character and pets
 	void actionStep(param petAction, param charAction, int selectedPet);

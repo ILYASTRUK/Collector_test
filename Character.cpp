@@ -1,9 +1,22 @@
 ﻿#include <iostream>
 #include <ctime>
 #include <iomanip>
-#include"character.h"
+#include"Character.h"
 
 using namespace std;
+
+Character::Character() : hunger(100), fun(80), cheerfulness(100), name("Lewis Hamilton"), age(0), status(true), money(50), petsCount(1), livePets(1)
+{
+#ifdef _DEBUG
+	cout << " Character constructor" << endl;
+#endif
+}
+Character::~Character()
+{
+#ifdef _DEBUG
+	cout << "Character destructor" << endl;
+#endif
+}
 
 bool Character::character_dead() //death check
 {
@@ -109,18 +122,7 @@ void Character::character_step(int _param)
 	}
 }
 
-Character::Character() : hunger(100), fun(100), cheerfulness(100), name("Lewis Hamilton"), age(0), status(true), money(50), petsCount(1), livePets(1)
-{
-#ifdef _DEBUG
-	cout << " Character constructor" << endl;
-#endif
-}
-Character::~Character()
-{
-#ifdef _DEBUG
-	cout << "Character destructor" << endl;
-#endif
-}
+
 
 int Character::spend_money()
 {
@@ -356,4 +358,11 @@ void Character::actionStep(param charAction)
 Pet& Character::operator[](int i)
 {
 	return p[i];
+}
+
+void Character::funUp()
+{
+	cout << fun << "-->";
+	fun += p[0].getAge();
+	cout << fun << endl;
 }

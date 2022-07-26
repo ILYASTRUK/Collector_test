@@ -1,13 +1,9 @@
 #pragma once
-//class PetInterface;
 #include "PetInterface.h"
-#include "Character.h"
-#include "Pet.h"
 
-class Cat : public PetInterface, public Character, public Pet
+
+class Cat : public PetInterface
 {
-private:
-
 public:
 	Cat();
 	~Cat();

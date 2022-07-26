@@ -2,6 +2,8 @@
 #include <ctime>
 #include"Pet.h"
 #include"Character.h"
+#include"Cat.h"
+//#include"PetInterface.h"
 
 using namespace std;
 
@@ -33,6 +35,7 @@ int getPetNumber(Character& men)
 int main()
 {
 	Character men;
+	
 	int checkMoney;
 	int choice; //action choice in switch
 

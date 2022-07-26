@@ -4,7 +4,7 @@ class Character;
 
 class Pet
 {
-protected:	
+private:	
 	int fun;	//0-100
 	int cheerfulness;	//0-100
 	int hunger;  //0-100
@@ -28,6 +28,7 @@ public:
 	int getHunger();
 	int getFun();
 	int getCheerfulness();
+	int getAge();
 	bool getStatus();
 	void setpetName();
 	std::string getName();
