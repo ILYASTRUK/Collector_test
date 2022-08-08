@@ -359,10 +359,3 @@ Pet& Character::operator[](int i)
 {
 	return p[i];
 }
-
-void Character::funUp()
-{
-	cout << fun << "-->";
-	fun += p[0].getAge();
-	cout << fun << endl;
-}

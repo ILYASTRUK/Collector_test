@@ -12,8 +12,10 @@ PetBase::PetBase(int* attr) : attrPtr(attr)
 
 PetBase::~PetBase()
 {
+	srand(time(0));
+	*attrPtr -= rand() % (*attrPtr / 2);
+
 #ifdef _DEBUG
 	cout << "PetBase destructor" << endl;
 #endif
-	attrPtr -= rand() % (*attrPtr / 2);
 }

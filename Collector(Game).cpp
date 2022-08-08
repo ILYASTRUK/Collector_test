@@ -2,8 +2,7 @@
 #include <ctime>
 #include"Pet.h"
 #include"Character.h"
-#include"Cat.h"
-//#include"PetInterface.h"
+#include"PetBase.h"
 
 using namespace std;
 
@@ -34,6 +33,9 @@ int getPetNumber(Character& men)
 
 int main()
 {
+	int va = 6;
+	PetBase t(&va);
+
 	Character men;
 	
 	int checkMoney;

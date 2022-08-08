@@ -1,7 +1,6 @@
 #pragma once
 #include "PetInterface.h"
 
-
 class Cat : public PetInterface
 {
 public:
@@ -12,5 +11,4 @@ public:
 	virtual void play() override;
 
 	virtual void passiveStep() override;
-
 };
